@@ -7,7 +7,7 @@ import numpy as np
 
 def load_trainer(train_path, image_size, classes):
 	images = []
-	label = []
+	labels = []
 	img_names = []
 	cls = []
 
@@ -19,7 +19,7 @@ def load_trainer(train_path, image_size, classes):
 		files = glob.glob(path)
 		for file in files:
 			image = cv2.imread(file)
-			image = cv2.resize(image, image, image_size, 0, 0, cv2.INTER_LINEAR)
+			image = cv2.resize(image, (image_size, image_size), 0, 0, cv2.INTER_LINEAR)
 			image = image.astype(np.float32)
 			image = np.multiply(image, 1.0/255.0)
 			images.append(image)
@@ -60,7 +60,7 @@ class DataSet(object):
 	
 	@property
 	def cls(self):
-		return self. cls
+		return self._cls
 	
 	@property
 	def num_examples(self):
@@ -94,7 +94,7 @@ def read_train_sets(train_path, image_size, classes, validation_size):
 	images, labels, img_names, cls = shuffle(images, labels, img_names, cls)
 
 	if isinstance(validation_size, float):
-		validation_size = int(validation_size * image.shape[0])
+		validation_size = int(validation_size * images.shape[0])
 
 	validation_images = images[validation_size]
 	validation_labels = labels[:validation_size]
