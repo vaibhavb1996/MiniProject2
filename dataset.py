@@ -48,11 +48,11 @@ class DataSet(object):
 
 	@property
 	def images(self):
-		return self. images
+		return self._images
 	
 	@property
 	def labels(self):
-		return selff labels
+		return self._labels
 	
 	@property
 	def img_names(self):
