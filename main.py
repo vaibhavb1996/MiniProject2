@@ -87,3 +87,14 @@ def create_flatten_layer(layer):
 
 	return layer
 
+def create_fc_layer(input, num_inputs, num_outputs, use_relu = True):
+	#Defining trainable weights and biases
+	weights = create_weights(shape = [num_inputs, num_outputs])
+	biases = create_biases(num_outputs)
+
+	# Fully connected layer takes input x and produces wx+b.Since, these are matrices, we use matmul function in Tensorflow
+	layer = tf.matmul(input, weights) + biases
+	if use_relu:
+		layer = tf.nn.relu(layer)
+	return layer
+
