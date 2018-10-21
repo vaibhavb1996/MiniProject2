@@ -18,7 +18,7 @@ def load_trainer(train_path, image_size, classes):
 		path = os.path.join(train_path, fields, '*g')
 		files = glob.glob(path)
 		for file in files:
-			image = cv2.imreAad(file)
+			image = cv2.imread(file)
 			image = cv2.resize(image, image, image_size, 0, 0, cv2.INTER_LINEAR)
 			image = image.astype(np.float32)
 			image = np.multiply(image, 1.0/255.0)
