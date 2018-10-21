@@ -1,3 +1,4 @@
+#Copyright 2018 Vaibhav Bansal vbansal@bu.edu
 import cv2
 import os
 import glob
