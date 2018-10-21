@@ -25,7 +25,7 @@ num_channels = 3
 train_path = 'training_data'
 
 # All data is loaded into memory using OpenCV
-data = dataset.read_trai_sets(train_path, img_size, classes, validation_size = validation_size)
+data = dataset.read_train_sets(train_path, img_size, classes, validation_size = validation_size)
 
 print("Completed reading input data. Will print a snippet of it now..")
 print("No. of files in training set:\t\t{}".format(len(data.train.labels)))
