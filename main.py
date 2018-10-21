@@ -74,3 +74,16 @@ def create_convolutional_layer(input, num_input_channels, conv_filter_size, num_
 	layer = tf.nn.relu(layer)
 
 	return layer
+
+def create_flatten_layer(layer):
+	#retrieve the shape of the layer
+	layer_shape = layer.get_shape()
+
+	#Number of features shall be height*width*channels
+	num_features = layer_shape[1:4].num_elements()
+
+	#Now we flatten the layer so we shall have to reshape to num_features
+	layer = tf.reshape(layer, [-1, num_features])
+
+	return layer
+
