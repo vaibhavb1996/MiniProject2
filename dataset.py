@@ -91,7 +91,7 @@ def read_train_sets(train_path, image_size, classes, validation_size):
 	data_sets = DataSets()
 
 	images, labels, img_names, cls = load_trainer(train_path, image_size, classes)
-	images, labels, img_names, cls = shuffle(images, labels, img_names, cls)
+	images, labels, img_names, cls = shuffle(images, labels, img_names, cls, random_state = 4)
 
 	if isinstance(validation_size, float):
 		validation_size = int(validation_size * images.shape[0])
