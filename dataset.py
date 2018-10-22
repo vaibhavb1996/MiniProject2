@@ -96,7 +96,7 @@ def read_train_sets(train_path, image_size, classes, validation_size):
 	if isinstance(validation_size, float):
 		validation_size = int(validation_size * images.shape[0])
 
-	validation_images = images[validation_size]
+	validation_images = images[:validation_size]
 	validation_labels = labels[:validation_size]
 	validation_img_names = img_names[:validation_size]
 	validation_cls = cls[:validation_size]
