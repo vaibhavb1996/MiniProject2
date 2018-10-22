@@ -10,8 +10,11 @@ import os
 from numpy.random import seed
 seed(1)
 from tensorflow import set_random_seed
+#from tensorflow.keras.optimizers import SGD
 set_random_seed(2)
-
+import warnings
+warnings.filterwarnings("ignore")
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 batch_size = 32
 
 # Preparing input data
@@ -45,8 +48,8 @@ num_filters_conv1 = 32
 filter_size_conv2 = 3
 num_filters_conv2 = 32
 
-filter_size_conv3 = 3
-num_filters_conv3 = 64
+#filter_size_conv3 = 3
+#num_filters_conv3 = 64
 
 fc_layer_size = 128
 
@@ -100,9 +103,9 @@ def create_fc_layer(input, num_inputs, num_outputs, use_relu = True):
 
 layer_conv1 = create_convolutional_layer(input = x, num_input_channels = num_channels, conv_filter_size = filter_size_conv1, num_filters = num_filters_conv1)
 layer_conv2 = create_convolutional_layer(input = layer_conv1, num_input_channels = num_filters_conv1, conv_filter_size = filter_size_conv2, num_filters = num_filters_conv2)
-layer_conv3 = create_convolutional_layer(input = layer_conv2, num_input_channels = num_filters_conv2, conv_filter_size = filter_size_conv3, num_filters = num_filters_conv3)
+#layer_conv3 = create_convolutional_layer(input = layer_conv2, num_input_channels = num_filters_conv2, conv_filter_size = filter_size_conv3, num_filters = num_filters_conv3)
 
-layer_flat = create_flatten_layer(layer_conv3)
+layer_flat = create_flatten_layer(layer_conv2) #change back later
 
 layer_fc1 = create_fc_layer(input = layer_flat, num_inputs = layer_flat.get_shape()[1:4].num_elements(),num_outputs = fc_layer_size, use_relu = True)
 layer_fc2 = create_fc_layer(input = layer_fc1, num_inputs = fc_layer_size, num_outputs = num_classes, use_relu = False)
@@ -112,7 +115,7 @@ y_pred_cls = tf.argmax(y_pred, dimension = 1)
 session.run(tf.global_variables_initializer())
 cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits = layer_fc2, labels = y_true)
 cost = tf.reduce_mean(cross_entropy)
-optimizer = tf.train.AdamOptimizer(learning_rate = 0.0001).minimize(cost)
+optimizer = tf.train.GradientDescentOptimizer(learning_rate = 0.001).minimize(cost)
 correct_prediction = tf.equal(y_pred_cls, y_true_cls)
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
@@ -154,4 +157,4 @@ def train(num_iteration):
 
     total_iterations += num_iteration
 
-train(num_iteration=100)
+train(num_iteration=500)
