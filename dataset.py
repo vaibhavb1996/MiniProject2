@@ -101,10 +101,10 @@ def read_train_sets(train_path, image_size, classes, validation_size):
 	validation_img_names = img_names[:validation_size]
 	validation_cls = cls[:validation_size]
 
-	train_images = images[validation_size]
-	train_labels = labels[:validation_size]
-	train_img_names = img_names[:validation_size]
-	train_cls = cls[:validation_size]
+	train_images = images[validation_size:]
+	train_labels = labels[validation_size:]
+	train_img_names = img_names[validation_size:]
+	train_cls = cls[validation_size:]
 
 	data_sets.train = DataSet(train_images, train_labels, train_img_names, train_cls)
 	data_sets.valid = DataSet(validation_images, validation_labels, validation_img_names, validation_cls)
